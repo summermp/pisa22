@@ -1,0 +1,10 @@
+# Set the default port
+[server]
+enableStaticServing = true
+
+[browser]
+gatherUsageStats = false
+
+#[theme]
+#base="light"
+#primaryColor="purple"

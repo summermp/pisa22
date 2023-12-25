@@ -1,0 +1,82 @@
+﻿Region,Overall Score,Math Score,Science Score,Reading Score,Flag
+Singapore,560,575,561,543,./static/img/singapore.svg
+Macau,535,552,543,510,./static/img/macau.svg
+Japan,533,536,547,516,./static/img/japan.svg
+Taiwan,533,547,537,515,./static/img/taiwan.svg
+South Korea,523,527,528,515,./static/img/south-korea.svg
+Hong Kong,520,540,520,500,./static/img/hong-kong.svg
+Estonia,516,510,526,511,./static/img/estonia.svg
+Canada,506,497,515,507,./static/img/canada.svg
+Ireland,504,492,504,516,./static/img/ireland.svg
+Switzerland,498,508,503,483,./static/img/switzerland.svg
+Australia,497,487,507,498,./static/img/australia.svg
+Finland,495,484,511,490,./static/img/new-zealand.svg
+New Zealand,495,479,504,501,./static/img/finland.svg
+United Kingdom,494,489,500,494,./static/img/united-kingdom.svg
+Poland,492,489,499,489,./static/img/poland.svg
+Czech Republic,491,487,498,489,./static/img/czech-republic.svg
+Denmark,491,489,494,489,./static/img/denmark.svg
+United States,489,465,499,504,./static/img/united-states.svg
+Sweden,488,482,494,487,./static/img/sweden.svg
+Austria,486,487,491,480,./static/img/belgium.svg
+Belgium,486,489,491,479,./static/img/austria.svg
+Slovenia,485,485,500,469,./static/img/slovenia.svg
+Latvia,484,483,494,475,./static/img/latvia.svg
+Germany,482,475,492,480,./static/img/germany.svg
+Netherlands,480,493,488,459,./static/img/netherlands.svg
+France,478,474,487,474,./static/img/france.svg
+Portugal,478,472,484,477,./static/img/portugal.svg
+Hungary,477,473,486,473,./static/img/hungary.svg
+Italy,477,471,477,482,./static/img/italy.svg
+Lithuania,477,475,484,472,./static/img/lithuania.svg
+Spain,477,473,485,474,./static/img/spain.svg
+Croatia,474,463,483,475,./static/img/croatia.svg
+Norway,474,468,478,477,./static/img/norway.svg
+Vietnam,468,469,472,462,./static/img/vietnam.svg
+Israel,466,458,465,474,./static/img/israel.svg
+Turkey,462,453,476,456,./static/img/turkey.svg
+Malta,459,466,466,445,./static/img/malta.svg
+Slovakia,458,464,462,447,./static/img/slovakia.svg
+Iceland,447,459,447,436,./static/img/iceland.svg
+Serbia,442,440,447,440,./static/img/serbia.svg
+Ukraine,440,441,450,428,./static/img/ukraine.svg
+Brunei,439,442,446,429,./static/img/brunei.svg
+Greece,436,430,441,438,./static/img/greece.svg
+Chile,435,412,444,448,./static/img/chile.svg
+Romania,428,428,428,428,./static/img/romania.svg
+United Arab Emirates,427,431,432,417,./static/img/united-arab-emirates.svg
+Uruguay,425,409,435,430,./static/img/uruguay.svg
+Qatar,422,414,432,419,./static/img/qatar.svg
+Bulgaria,414,417,421,404,./static/img/bulgaria.svg
+Moldova,414,414,417,411,./static/img/moldova.svg
+Kazakhstan,411,425,423,386,./static/img/kazakhstan.svg
+Mexico,407,395,410,415,./static/img/mexico.svg
+Mongolia,405,425,412,378,./static/img/montenegro.svg
+Montenegro,405,406,403,405,./static/img/mongolia.svg
+Costa Rica,404,385,411,415,./static/img/malaysia.svg
+Malaysia,404,409,416,388,./static/img/costa-rica.svg
+Cyprus,403,418,411,381,./static/img/cyprus.svg
+Peru,402,391,408,408,./static/img/peru.svg
+Colombia,401,383,411,409,./static/img/colombia.svg
+Brazil,397,379,403,410,./static/img/jamaica.svg
+Jamaica,397,377,403,410,./static/img/brazil.svg
+Argentina,395,378,406,401,./static/img/argentina.svg
+Thailand,394,394,409,379,./static/img/thailand.svg
+Saudi Arabia,387,389,390,383,./static/img/saudi-arabia.svg
+Georgia,383,390,384,374,./static/img/georgia.svg
+Azerbaijan,381,397,380,365,./static/img/azerbaijan.svg
+Panama,379,357,388,392,./static/img/panama.svg
+North Macedonia,376,389,380,359,./static/img/north-macedonia.svg
+Indonesia,369,366,383,359,./static/img/indonesia.svg
+Albania,367,368,376,358,./static/img/albania.svg
+Guatemala,364,344,373,374,./static/img/guatemala.svg
+Palestine,361,366,369,349,./static/img/palestine.svg
+El Salvador,360,343,373,365,./static/img/paraguay.svg
+Paraguay,360,338,368,373,./static/img/el-salvador.svg
+Jordan,359,361,375,342,./static/img/jordan.svg
+Morocco,356,365,365,339,./static/img/morocco.svg
+Philippines,353,355,356,347,./static/img/philippines.svg
+Uzbekistan,352,364,355,336,./static/img/uzbekistan.svg
+Kosovo,351,355,357,342,./static/img/kosovo.svg
+Dominican Republic,350,339,360,351,./static/img/dominican-republic.svg
+Cambodia,337,336,347,329,./static/img/cambodia.svg
