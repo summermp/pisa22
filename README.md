@@ -13,7 +13,7 @@ Welcome to the Streamlit Web App for PISA 2022! 📊 This web application provid
 ## Usage 🖥️
 
 1. Install dependencies: `pip install -r requirements.txt`
-2. Run the app: `streamlit run app.py`
+2. Run the app: `streamlit run streamlit_app.py`
 3. Open your browser and navigate to [http://localhost:8501](http://localhost:8501).
 
 ## Technologies Used 🛠️
