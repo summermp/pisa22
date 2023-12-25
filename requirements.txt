@@ -1,0 +1,8 @@
+streamlit==1.28.2
+streamlit-option-menu==0.3.6
+pandas==1.5.2
+plotly==5.18.0
+streamlit_pagination==0.0.3
+streamlit_carousel==0.0.4
+streamlit_player==0.1.5
+st_tabs==0.1.1
