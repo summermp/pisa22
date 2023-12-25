@@ -2,9 +2,9 @@ import base64
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
-from streamlit.components.v1 import html
 import plotly.express as px
 import plotly.graph_objects as go
+from streamlit.components.v1 import html
 from plotly.subplots import make_subplots
 from plotly.express import choropleth_mapbox
 from streamlit_option_menu import option_menu
@@ -53,13 +53,9 @@ html("""<script>
     decoration.style.backgroundImage = "url(https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/merry_christmas.gif)";
     decoration.style.backgroundSize = "contain";
     </script>""", width=0, height=0)
-st.sidebar.image('./static/img/oecd.png')
-st.markdown("""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>.carousel-indicators .active{ background-color:black !important;}</style>
-""", unsafe_allow_html=True)
 st.image('./static/img/pisa.png', use_column_width=True)
+st.sidebar.image('./static/img/oecd.png')
 df = pd.read_csv("pisa2022.csv")
-
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
         data = f.read()
@@ -70,7 +66,6 @@ def autoplay_audio(file_path: str):
             </audio>
             """
         st.markdown(md,unsafe_allow_html=True)
-
 def chart1():
     user_country = st.text_input('Country 👇',placeholder='Write the country...', help='The country name')
     df['Rank'] = range(1, len(df) + 1)
@@ -278,6 +273,9 @@ def tooltip(image_url, text):
     </div>
     """
     return tooltip_html
+st.markdown("""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>.carousel-indicators .active{ background-color:black !important;}</style>
+""", unsafe_allow_html=True)
 def home():
     autoplay_audio("./static/audio/summer-adventures.mp3")
     st.markdown("""
@@ -447,8 +445,7 @@ def about():
     **PISA** has become an **important** tool for **understanding** and **improving** the **quality** of education on a global scale.
 
     ''', icon="🧐")
-    st.link_button("Go to pisa 2022 results volume I", "https://www.oecd-ilibrary.org/education/pisa-2022-results-volume-i_53f23881-en", type='primary')    
-    
+    st.link_button("Go to pisa 2022 results volume I", "https://www.oecd-ilibrary.org/education/pisa-2022-results-volume-i_53f23881-en", type='primary')        
 menu = {
     'title': 'Main menu',
     'items': { 
