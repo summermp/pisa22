@@ -1,5 +1,4 @@
 import base64
-import random
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
@@ -38,11 +37,28 @@ styles = {
         "color": "black",
     },
 }
-file_path = "pisa2022.csv"
-df = pd.read_csv(file_path)
+html("""<script>
+    // Locate elements
+    var decoration = window.parent.document.querySelectorAll('[data-testid="stDecoration"]')[0];
+    var sidebar = window.parent.document.querySelectorAll('[data-testid="stSidebar"]')[0];
+    // Observe sidebar size
+    function outputsize() {
+        decoration.style.left = `${sidebar.offsetWidth}px`;
+    }
+    // Adjust sizes
+    outputsize();
+    decoration.style.height = "6.0rem";
+    decoration.style.right = "45px";
+    // Adjust image decorations
+    decoration.style.backgroundImage = "url(https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/merry_christmas.gif)";
+    decoration.style.backgroundSize = "contain";
+    </script>""", width=0, height=0)
 st.sidebar.image('./static/img/oecd.png')
+st.markdown("""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>.carousel-indicators .active{ background-color:black !important;}</style>
+""", unsafe_allow_html=True)
 st.image('./static/img/pisa.png', use_column_width=True)
-st.markdown("""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />""", unsafe_allow_html=True)
+df = pd.read_csv("pisa2022.csv")
 
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
@@ -58,14 +74,10 @@ def autoplay_audio(file_path: str):
 def chart1():
     user_country = st.text_input('Country 👇',placeholder='Write the country...', help='The country name')
     df['Rank'] = range(1, len(df) + 1)
-
     if user_country:
-        # Filter DataFrame based on user input
         filtered_df = df[df['Region'].str.lower() == user_country.lower()]
         if not filtered_df.empty:
-            # Add Rank column to the filtered DataFrame
             filtered_df['Rank'] = df['Rank']
-            # Plotting the bar chart for the specific country
             fig = px.bar(filtered_df, x='Overall Score', y='Region', orientation='h',
                         title=f'Overall Score for {user_country} by Region',
                         labels={'Overall Score': 'Overall PISA Score'},
@@ -81,7 +93,6 @@ def chart1():
                 margin=dict(l=50, r=20, t=50, b=50),
             )
             fig.update_traces(
-                # marker_color='rgb(44, 160, 44)',  # Bar color
                               marker_line_color='rgb(44, 160, 44)',  # Bar border color
                               marker_line_width=1.5,
                               opacity=0.7,
@@ -280,7 +291,6 @@ def home():
     dict(title="",text="",interval=2000,img="https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/insight5.png",),
     dict(title="",text="",interval=None,img="https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/insight6.png",),
     ]
-
     carousel(items=test_items, width=1, height=500)
     st.markdown("<h4 style='margin:0; font-weight:bold;'>Supporting students in and beyond the classroom is key</h4>", unsafe_allow_html=True)
     st.image('./static/img/supporting_students.png', use_column_width=True)
@@ -399,7 +409,6 @@ def home():
         </p>
         </div>
         ''', unsafe_allow_html=True)
-    
 def about():
     txt1 = tooltip('https://raw.githubusercontent.com/summermp/pisa22/main/static/img/students_talking.png', "<span style='boder: 1px solid blue; border-radius:4px; background-color:green; color: white; padding:2px;'><i class='fa-solid fa-child-reaching fa-fade'></i> 15-year-old students <i class='fa-solid fa-child-dress fa-fade'></i></span>")
     html("""
@@ -476,7 +485,6 @@ menu = {
     'orientation': 'vertical',
     'styles': styles
 }
-
 def show_menu(menu):
     def _get_options(menu):
         options = list(menu['items'].keys())
@@ -515,27 +523,3 @@ Focus on science and include:
 <i class="fa-solid fa-language"></i> Foreign languages <br/>
 <i class="fa-solid fa-globe"></i> Learning in the Digital World
 </div>''', unsafe_allow_html=True)
-st.components.v1.html(
-    """
-    <script>
-    // Locate elements
-    var decoration = window.parent.document.querySelectorAll('[data-testid="stDecoration"]')[0];
-    var sidebar = window.parent.document.querySelectorAll('[data-testid="stSidebar"]')[0];
-
-    // Observe sidebar size
-    function outputsize() {
-        decoration.style.left = `${sidebar.offsetWidth}px`;
-    }
-
-    new ResizeObserver(outputsize).observe(sidebar);
-
-    // Adjust sizes
-    outputsize();
-    decoration.style.height = "6.0rem";
-    decoration.style.right = "45px";
-
-    // Adjust image decorations
-    decoration.style.backgroundImage = "url(https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/merry_christmas.gif)";
-    decoration.style.backgroundSize = "contain";
-    </script>        
-    """, width=0, height=0)
