@@ -13,7 +13,7 @@ from streamlit_pagination import pagination_component#https://github.com/Socvest
 from streamlit_carousel import carousel#https://pypi.org/project/streamlit-carousel/
 from streamlit_player import st_player
 from st_tabs import TabBar#https://pypi.org/project/st-tabs/
-st.set_page_config(page_title='PISA 2022', page_icon="🌎", initial_sidebar_state="expanded", layout='wide')
+st.set_page_config(page_title='PISA 2022', page_icon="🏫", initial_sidebar_state="expanded", layout='wide')
 styles = {
     "container": {
         "margin": "0px !important",
