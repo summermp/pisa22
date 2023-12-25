@@ -13,7 +13,7 @@ from streamlit_pagination import pagination_component#https://github.com/Socvest
 from streamlit_carousel import carousel#https://pypi.org/project/streamlit-carousel/
 from streamlit_player import st_player
 from st_tabs import TabBar#https://pypi.org/project/st-tabs/
-st.set_page_config(page_title='PISA 2022', page_icon="🏫", initial_sidebar_state="expanded", layout='wide')
+st.set_page_config(page_title='PISA 2022', page_icon="🌎", initial_sidebar_state="expanded", layout='wide')
 styles = {
     "container": {
         "margin": "0px !important",
@@ -273,12 +273,12 @@ def home():
 
     <h2 style='margin:0; text-align:center; font-weight:bold;'> <i class="fa-solid fa-square-poll-vertical fa-beat"></i> <span style='color:#262261;'> PISA 2022 Results</span></h2>""", unsafe_allow_html=True)
     test_items = [
-    dict(title="",text="",interval=None,img="https://residuos.streamlit.app/app/static/img/banner/insight1.png",),
-    dict(title="",text="",interval=2000,img="https://residuos.streamlit.app/app/static/img/banner/insight2.png",),
-    dict(title="",text="",interval=2000,img="https://residuos.streamlit.app/app/static/img/banner/insight3.png",),
-    dict(title="",text="",interval=2000,img="https://residuos.streamlit.app/app/static/img/banner/insight4.png",),
-    dict(title="",text="",interval=2000,img="https://residuos.streamlit.app/app/static/img/banner/insight5.png",),
-    dict(title="",text="",interval=None,img="https://residuos.streamlit.app/app/static/img/banner/insight6.png",),
+    dict(title="",text="",interval=None,img="https://pisa22.streamlit.app/app/static/img/banner/insight1.png",),
+    dict(title="",text="",interval=2000,img="https://pisa22.streamlit.app/app/static/img/banner/insight2.png",),
+    dict(title="",text="",interval=2000,img="https://pisa22.streamlit.app/app/static/img/banner/insight3.png",),
+    dict(title="",text="",interval=2000,img="https://pisa22.streamlit.app/app/static/img/banner/insight4.png",),
+    dict(title="",text="",interval=2000,img="https://pisa22.streamlit.app/app/static/img/banner/insight5.png",),
+    dict(title="",text="",interval=None,img="https://pisa22.streamlit.app/app/static/img/banner/insight6.png",),
     ]
 
     carousel(items=test_items, width=1, height=500)
@@ -401,7 +401,7 @@ def home():
         ''', unsafe_allow_html=True)
     
 def about():
-    txt1 = tooltip('https://residuos.streamlit.app/app/static/img/students_talking.png', "<span style='boder: 1px solid blue; border-radius:4px; background-color:green; color: white; padding:2px;'><i class='fa-solid fa-child-reaching fa-fade'></i> 15-year-old students <i class='fa-solid fa-child-dress fa-fade'></i></span>")
+    txt1 = tooltip('https://pisa22.streamlit.app/app/static/img/students_talking.png', "<span style='boder: 1px solid blue; border-radius:4px; background-color:green; color: white; padding:2px;'><i class='fa-solid fa-child-reaching fa-fade'></i> 15-year-old students <i class='fa-solid fa-child-dress fa-fade'></i></span>")
     html("""
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>html{border: 1px solid #de3f53;padding: 4px;}</style>
@@ -536,7 +536,7 @@ st.components.v1.html(
     decoration.style.right = "45px";
 
     // Adjust image decorations
-    decoration.style.backgroundImage = "url(https://residuos.streamlit.app/app/static/img/banner/merry_christmas.gif)";
+    decoration.style.backgroundImage = "url(https://pisa22.streamlit.app/app/static/img/banner/merry_christmas.gif)";
     decoration.style.backgroundSize = "contain";
     </script>        
     """, width=0, height=0)
