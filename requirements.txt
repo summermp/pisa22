@@ -6,3 +6,4 @@ streamlit_pagination==0.0.3
 streamlit_carousel==0.0.4
 streamlit_player==0.1.5
 st_tabs==0.1.1
+matplotlib
