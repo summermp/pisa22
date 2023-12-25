@@ -85,7 +85,7 @@ def chart1():
                               marker_line_color='rgb(44, 160, 44)',  # Bar border color
                               marker_line_width=1.5,
                               opacity=0.7,
-                              hovertemplate='<img src="https://picsum.photos/24/24"/><b>%{hovertext}</b><br>Average Score: %{x:,.0f}<br>Rank: %{text}')
+                              hovertemplate='<b>%{hovertext}</b><br>Average Score: %{x:,.0f}<br>Rank: %{text}')
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning(f"No data found for the country: {user_country}")
