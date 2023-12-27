@@ -1,10 +1,11 @@
 import base64
+import random
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
+from streamlit.components.v1 import html
 import plotly.express as px
 import plotly.graph_objects as go
-from streamlit.components.v1 import html
 from plotly.subplots import make_subplots
 from plotly.express import choropleth_mapbox
 from streamlit_option_menu import option_menu
@@ -37,24 +38,9 @@ styles = {
         "color": "black",
     },
 }
-html("""<script>
-    // Locate elements
-    var decoration = window.parent.document.querySelectorAll('[data-testid="stDecoration"]')[0];
-    var sidebar = window.parent.document.querySelectorAll('[data-testid="stSidebar"]')[0];
-    // Observe sidebar size
-    function outputsize() {
-        decoration.style.left = `${sidebar.offsetWidth}px`;
-    }
-    // Adjust sizes
-    outputsize();
-    decoration.style.height = "6.0rem";
-    decoration.style.right = "45px";
-    // Adjust image decorations
-    decoration.style.backgroundImage = "url(https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/merry_christmas.gif)";
-    decoration.style.backgroundSize = "contain";
-    </script>""", width=0, height=0)
 st.image('./static/img/pisa.png', use_column_width=True)
 st.sidebar.image('./static/img/oecd.png')
+st.markdown("""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />""", unsafe_allow_html=True)
 df = pd.read_csv("pisa2022.csv")
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
@@ -88,6 +74,7 @@ def chart1():
                 margin=dict(l=50, r=20, t=50, b=50),
             )
             fig.update_traces(
+                # marker_color='rgb(44, 160, 44)',  # Bar color
                               marker_line_color='rgb(44, 160, 44)',  # Bar border color
                               marker_line_width=1.5,
                               opacity=0.7,
@@ -273,14 +260,9 @@ def tooltip(image_url, text):
     </div>
     """
     return tooltip_html
-st.markdown("""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>.carousel-indicators .active{ background-color:black !important;}</style>
-""", unsafe_allow_html=True)
 def home():
     autoplay_audio("./static/audio/summer-adventures.mp3")
-    st.markdown("""
-
-    <h2 style='margin:0; text-align:center; font-weight:bold;'> <i class="fa-solid fa-square-poll-vertical fa-beat"></i> <span style='color:#262261;'> PISA 2022 Results</span></h2>""", unsafe_allow_html=True)
+    st.markdown("""<h2 style='margin:0; text-align:center; font-weight:bold;'> <i class="fa-solid fa-square-poll-vertical fa-beat"></i> <span style='color:#262261;'> PISA 2022 Results</span></h2>""", unsafe_allow_html=True)
     test_items = [
     dict(title="",text="",interval=None,img="https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/insight1.png",),
     dict(title="",text="",interval=2000,img="https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/insight2.png",),
@@ -289,133 +271,339 @@ def home():
     dict(title="",text="",interval=2000,img="https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/insight5.png",),
     dict(title="",text="",interval=None,img="https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/insight6.png",),
     ]
-    carousel(items=test_items, width=1, height=500)
-    st.markdown("<h4 style='margin:0; font-weight:bold;'>Supporting students in and beyond the classroom is key</h4>", unsafe_allow_html=True)
-    st.image('./static/img/supporting_students.png', use_column_width=True)
-    st.markdown('**Source:** OECD, PISA 2022 Database')
-    tab = TabBar(tabs=["Info 1", "Info 2", "Info 3", "Info 4", "Info 5", "Info 6", "Info 7", "Info 8"],default=0,background = "#F0F8FF",color="grey",activeColor="blue",fontSize="20px")
+    carousel(items=test_items, width=1)
+    st.write("**Source:** [PISA 2022, Infographics](https://www.oecd.org/pisa/OECD_2022_PISA_Results_Infographics.pdf)")
+    st.markdown('''<h4 style='margin:0; font-weight:bold;'><span style='
+        background-image: linear-gradient(
+            to bottom,
+            #ffc20e 27%,
+            transparent 27%
+          );
+    background-position: 0px 0.96em;
+    padding: 0px 1px 0px 1px;'>Supporting students</span> in and beyond the classroom is key</h4><br/>    
+    <p>Socio-economically disadvantaged students in OECD countries are <b>seven times more likely on average</b> than advantaged students not to achieve basic mathematics proficiency. However, across the OECD, <b>10% of disadvantaged students scored in the top quarter of mathematics performance in their own country</b>. Some countries/economies ensure that students attain a high level of mathematics performance despite socio-economic background. In <b>Macao (China)</b>, the most socio-economically disadvantaged students scored higher than the OECD average. <b>Boys outperformed girls in mathematics by 9 points</b> but girls surpassed boys in reading by 24 points on average.<p>
+    ''', unsafe_allow_html=True)
+    x, y, z = st.columns(3)
+    with x:
+        st.image('./static/img/pisa-food-insecurity.png', use_column_width=True)
+        st.markdown('''<p style='font-size: 60px; font-family: Oswald, sans-serif; text-align: center; font-weight: bold; color: #CF4A02;'>8%</p>
+        <p style='font-size: 18px; font-family: "Noto sans", sans-serif; text-align: center; font-weight: bold; color: #CF4A02;'>of students suffer food insecurity</p>''', unsafe_allow_html=True)
+    with y:
+        st.image('./static/img/pisa-student-devices.png', use_column_width=True)
+        st.markdown('''<p style='font-size: 60px; font-family: Oswald, sans-serif; text-align: center; font-weight: bold; color: #CF4A02;'>30%</p>
+        <p style='font-size: 18px; font-family: "Noto sans", sans-serif; text-align: center;  font-weight: bold; color: #CF4A02;'>of students get distracted by digital devices</p>''', unsafe_allow_html=True)
+    with z:
+        st.image('./static/img/pisa_bullied-student.png', use_column_width=True)
+        st.markdown('''<p style='font-size: 60px; font-family: Oswald, sans-serif; text-align: center; font-weight: bold; color: #CF4A02;'>20%</p>
+        <p style='font-size: 18px; font-family: "Noto sans", sans-serif; text-align: center; font-weight: bold; color: #CF4A02;'>of students are bullied at least a few times a month</p>''', unsafe_allow_html=True)
+    st.write("**Source:** [PISA 2022 results](https://www.oecd.org/publication/pisa-2022-results/)")
+    tab = TabBar(tabs=["FACT 1", "FACT 2", "FACT 3", "FACT 4", "FACT 5", "FACT 6", "FACT 7", "FACT 8"],default=0,background = "#F0F8FF",color="grey",activeColor="blue",fontSize="20px")
     if tab == 0:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… Around 690 000 students took
-        the PISA assessment in 2022,
-        representing about 29 million
-        15-year-olds from schools
-        in 81 participating countries
-        and economies. 
+        q, w, e = st.columns(3)
+        with q:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… Around 690 000 students took
+            the PISA assessment in 2022,
+            representing about 29 million
+            15-year-olds from schools
+            in 81 participating countries
+            and economies. 
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with w:
+            st.markdown(''' 
+            <div style='display: flex; width: align-items: center; height:220px;'>
+                <img style='border-radius:8px;' src='https://raw.githubusercontent.com/summermp/pisa22/main/static/img/youngsters-studying-posing.jpg' width='295px' height='220px'>
+            </div>
+            ''', unsafe_allow_html=True)
+        with e:
+            st.markdown(''' 
+            <style>
+                p {
+                   font-size: 16px;
+                   line-height: 1.6;
+                }
+                .fun-fact {
+                    color: #e74c3c;
+                    font-style: italic;
+                }
+            </style>
+            <p class="fun-fact"> That's equivalent to the entire population of a small country participating in a single educational assessment!</p>
+            <p>This global collaboration in education sets the stage for meaningful insights and improvements. Imagine the impact of such initiatives on the future of education worldwide!</p>
+            ''', unsafe_allow_html=True)
     if tab == 1:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… PISA assesses 15-year-olds as
-        this is the last point at which
-        most children are still enrolled
-        in formal education.
+        a, b = st.columns([1,2])
+        with a:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… PISA assesses 15-year-olds as
+            this is the last point at which
+            most children are still enrolled
+            in formal education.
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with b:
+            st.markdown(''' 
+            <style>
+                p {
+                   font-size: 16px;
+                   line-height: 1.6;
+                }
+                .fun-fact {
+                    color: #e74c3c;
+                    font-style: italic;
+                }
+            </style>
+            <p class="fun-fact"> PISA pinpoints the crucial window where education meets adult life, offering unique insights into future workforce readiness.</p>
+            <p><b>For educators:</b> "...highlighting the need to tailor education for real-world application."
+
+            <b>For policymakers:</b> "...providing crucial data to inform education reforms and prepare future generations for a globalized world."</p>
+            ''', unsafe_allow_html=True)
     elif tab == 2:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… Students who attain PISA
-        Level 5 or Level 6 are top
-        performers; for example,
-        they can work eff ectively with
-        mathematical models for
-        complex situations, comprehend
-        abstract texts, and interpret and
-        evaluate complex experiments. 
+        a, b = st.columns(2)
+        with a:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… Students who attain PISA
+            Level 5 or Level 6 are top
+            performers; for example,
+            they can work eff ectively with
+            mathematical models for
+            complex situations, comprehend
+            abstract texts, and interpret and
+            evaluate complex experiments. 
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with b:
+            st.markdown(''' 
+            <style>
+                p {
+                   font-size: 16px;
+                   line-height: 1.6;
+                }
+                .fun-fact {
+                    color: #e74c3c;
+                    font-style: italic;
+                }
+            </style>
+            <p class="fun-fact">Focus on real-world application and problem-solving:
+            
+            Level 5 & 6 PISA scorers aren't just bookworms! They can use math to solve real-world puzzles, navigate complex texts, and analyze experiments – essential skills for thriving in any future path.</p>
+            ''', unsafe_allow_html=True)
     elif tab == 3:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>...45% of students reported
-        feeling nervous or anxious if
-        their phones were not near
-        them, on average across
-        OECD countries. 
+        a, b, c = st.columns(3)
+        with a:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>...45% of students reported
+            feeling nervous or anxious if
+            their phones were not near
+            them, on average across
+            OECD countries. 
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with b:
+            st.markdown(''' 
+            <div style='text-align:center;'>
+                <img style='border-radius:8px;' src='https://raw.githubusercontent.com/summermp/pisa22/main/static/img/anxious.jpg' width='auto' height='195px'>
+            </div>
+            ''', unsafe_allow_html=True)
+        with c:
+            st.markdown(''' 
+            <style>
+                p {
+                    font-size: 16px;
+                    line-height: 1.6;
+                }
+                .fun-fact {
+                    height:195px;
+                    color: #e74c3c;
+                    font-style: italic;
+                    display: flex;
+                    align-items: center;
+                }
+            </style>
+            <p class="fun-fact">
+            <span>
+            Nearly half of students worldwide get phone withdrawal! Imagine missing your best friend that much.  #NomophobiaFunFact
+            </span></p>
+            ''', unsafe_allow_html=True)
+            
     elif tab == 4:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>...Seven out of ten students
-        reported that they regularly
-        received extra help from
-        teachers in 2022, while 22% of
-        students reported getting help
-        in some lessons. Around 8%
-        never or almost never received
-        additional support,
-        across the OECD. 
+        a, b = st.columns(2)
+        with a:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>...Seven out of ten students
+            reported that they regularly
+            received extra help from
+            teachers in 2022, while 22% of
+            students reported getting help
+            in some lessons. Around 8%
+            never or almost never received
+            additional support,
+            across the OECD. 
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with b:
+            st.markdown(''' 
+            <style>
+                p {
+                   font-size: 16px;
+                   line-height: 1.6;
+                }
+                .fun-fact {
+                    color: #e74c3c;
+                    font-style: italic;
+                }
+            </style>
+            <p class="fun-fact">
+            
+            <b>Majority of students seek extra help:</b> 70% of students regularly received extra help from teachers in 2022, indicating a widespread need for additional support.
+            
+            <b>Significant portion relies on some help:</b> 22% of students reported receiving help in some lessons, highlighting that even beyond regular assistance, occasional support plays a crucial role.
+            
+            <b>Not all students get the support they need:</b> 8% of students never or almost never received any additional support, suggesting a gap in addressing the needs of all students.
+            </p>
+            ''', unsafe_allow_html=True)
     elif tab == 5:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>... PISA uses real life problems to
-        assess students’ abilities through
-        multiple-choice and open-ended
-        questions. Students also answer
-        a background questionnaire
-        about themselves, their learning
-        attitudes and their homes.  
+        a, b = st.columns([1, 2])
+        with a:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>... PISA uses real life problems to
+            assess students’ abilities through
+            multiple-choice and open-ended
+            questions. Students also answer
+            a background questionnaire
+            about themselves, their learning
+            attitudes and their homes.  
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with b:
+            st.markdown(''' 
+            <style>
+                p {
+                   font-size: 16px;
+                   line-height: 1.6;
+                }
+                .fun-fact {
+                    color: #e74c3c;
+                    font-style: italic;
+                }
+            </style>
+            <p class="fun-fact">
+            PISA assesses real-life skills
+            Combination of question formats
+            Focus on student background
+            </p>
+            <div style='text-align:center;'>
+                <img style='border-radius:8px;' src='https://raw.githubusercontent.com/summermp/pisa22/main/static/img/young-girl-reading-textbook.jpg' width='auto' height='200px'>
+            </div>
+            ''', unsafe_allow_html=True)
     elif tab == 6:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… The average OECD scores in
-        2022 were 472 in maths, 476
-        in reading and 485 in science.
-        These scores were at the upper
-        end of PISA Level 2 in maths and
-        reading while at the lower end of
-        PISA Level 3 in science. 
+        a, b = st.columns(2)
+        with a:
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… The average OECD scores in
+            2022 were 472 in maths, 476
+            in reading and 485 in science.
+            These scores were at the upper
+            end of PISA Level 2 in maths and
+            reading while at the lower end of
+            PISA Level 3 in science. 
 
-        </p>
-        </div>
-        ''', unsafe_allow_html=True)
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)
+        with b:
+            st.markdown(''' 
+            <p>
+            <b>Upper end of PISA Level 2 (Proficiency):</b> In math and reading, students are demonstrating solid skills for solving basic problems and applying knowledge in familiar contexts.
+            
+            <b>Lower end of PISA Level 3 (Advanced):</b> In science, performance suggests students are beginning to think critically and solve complex problems in unfamiliar situations.
+            </p>
+            ''', unsafe_allow_html=True)
     elif tab == 7:
-        st.markdown(''' 
-        <div style='background-color:#D7EDFA; border-radius:8px;'>
-        <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
-        <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… That 20 points in PISA tests
-        is roughly equivalent to one
-        year of schooling. 
+        a, b = st.columns(2)
+        with a: 
+            st.markdown(''' 
+            <div style='background-color:#D7EDFA; border-radius:8px;'>
+            <h3 style='text-align:center; color:skyblue; font-weight:bold;'>Did you know…</h3>
+            <p style='padding: 5px 0px; text-align:center; color: #262261; white-space: pre-line; font-weight:bold;'>… That 20 points in PISA tests
+            is roughly equivalent to one
+            year of schooling. 
 
+            </p>
+            </div>
+            ''', unsafe_allow_html=True)    
+        with b:
+            st.markdown(''' 
+        <style>
+            p {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            .fun-fact {
+                color: #e74c3c;
+                font-style: italic;
+            }
+        </style>
+        <p class="fun-fact"><b>Remember, every 20 points matter:</b>
+
+        Let's work together to ensure all students take confident strides on their learning journey, one point, one year, one step at a time.
         </p>
-        </div>
         ''', unsafe_allow_html=True)
+    st.write("**Source:** [PISA 2022, Insights and Interpretations](https://www.oecd.org/pisa/PISA%202022%20Insights%20and%20Interpretations.pdf)")
 def about():
     txt1 = tooltip('https://raw.githubusercontent.com/summermp/pisa22/main/static/img/students_talking.png', "<span style='boder: 1px solid blue; border-radius:4px; background-color:green; color: white; padding:2px;'><i class='fa-solid fa-child-reaching fa-fade'></i> 15-year-old students <i class='fa-solid fa-child-dress fa-fade'></i></span>")
     html("""
-    <style>html{border: 1px solid #de3f53;padding: 4px;}</style>
-    <h2 style='color: #de3f53; border-bottom: solid 5px; '>What is PISA?</h2>    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+    iframe {
+        margin-bottom: 0px;
+    }
+    html{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        border: 1px solid #de3f53;padding:0px 4px;    
+        font-family: "Source Sans Pro", sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        color: rgb(49, 51, 63);
+        background-color: rgb(255, 255, 255);
+        text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-font-smoothing: auto;
+        }
+        </style>
+    
+    <h2 style='color: #de3f53; margin-top:0px; border-bottom: solid 5px; '>What is PISA?</h2>    
     
     <a href='https://www.oecd.org/pisa/' target='_blank'><b>PISA</b></a> stands for the "<b>Programme for International Student Assessment</b>".
     It is an international assessment conducted by the <a href='https://www.oecd.org' target='_blank'>Organisation for Economic Co-operation and Development (OECD)</a>
-    to evaluate the knowledge and skills of"""+txt1+""" in 
+    to evaluate the knowledge and skills   of"""+txt1+""" in 
     <span style='color: blue;font-weight: bold;'>reading <i class="fa-solid fa-book-open-reader fa-beat"></i></span>, 
     <span style='color: red; font-weight: bold;'>mathematics <i class="fa-solid fa-calculator fa-fade"></i></span>, and 
     <span style='color: green;font-weight: bold;'>science <i class="fa-solid fa-flask-vial fa-shake"></i></span>. PISA assessments are conducted <b>every three years</b>, 
@@ -425,16 +613,37 @@ def about():
     st_player("https://www.youtube.com/watch?v=6JstvTnZjHM", playing=True, loop=True, volume=1, controls=False, height=400)
     with st.expander("**Key features of PISA include:**"):
         st.markdown('''
-        1. **Cross-National Comparison:** PISA assesses students from a wide range of countries, allowing for cross-national comparisons of educational outcomes.
+        **1. Focus on Real-World Skills: 🌐**
 
-        2. **Focus on Real-World Skills:** PISA goes beyond traditional academic knowledge and focuses on assessing students' ability to apply their knowledge and skills to real-world problems.
+        PISA **prioritizes applying knowledge**, not just remembering it. Think **solving real-world problems** like navigating financial challenges, conducting scientific experiments, or crafting persuasive arguments 📊. It's all about equipping students with the practical skills they need to thrive in the diverse landscape of life.
 
-        3. **Rotating Domains:** While reading, mathematics, and science are the core domains, each assessment cycle may also include a focus on one additional domain, such as collaborative problem-solving or financial literacy.
+        **2. Assessment Across Domains: 🌍**
 
-        4. **Assessment of Competencies:** PISA assesses not only what students know but also their ability to use their knowledge and skills to solve problems and meet challenges.
+        While math and reading remain crucial, PISA ventures beyond, exploring domains like **financial literacy** 💹, **global competence** 🌐, and **digital literacy** 🖥️. This holistic approach paints a nuanced picture of student strengths and weaknesses, ensuring their skillset is well-rounded for the dynamic challenges of the 21st century.
 
-        5. **Sample-Based Approach:** PISA employs a sample-based approach, meaning that not all students in a country participate. Instead, a representative sample is selected to provide insights into the overall performance of the education system.
+        **3. Combination of Question Formats: ❓✍️**
+
+        Catering to diverse learning styles, PISA utilizes a strategic blend of question formats. **Multiple-choice assessments** measure core knowledge ✅, while **open-ended inquiries** encourage deeper analysis, creative expression, and critical thinking 🧠‍♀️. It's a symphony of assessment methods, ensuring every student has the opportunity to showcase their unique strengths.
+
+        **4. Data Collection Beyond Scores: 📊**
+
+        PISA dives deeper than just numbers. Through **student and school questionnaires**, it uncovers insights into **learning attitudes**, **socioeconomic backgrounds**, and access to **educational resources** 🏫. This rich data tapestry helps identify factors influencing achievement and tailor support for individual needs, paving the way for equitable success.
+
+        **5. International Comparison: 🌐**
+
+        PISA's standardized design fosters **global collaboration** and **knowledge-sharing**. **Countries compare performance**, identify areas for improvement, and celebrate best practices 🎉. It's a collective effort to raise the bar for education worldwide, ensuring every student, regardless of nationality, has access to quality learning opportunities.
+
+        **6. Cycle-Based Assessments: 🔄**
+
+        PISA isn't a yearly snapshot, but a strategic journey. Each **three-year cycle** allows for in-depth exploration of specific domains, while still providing **longitudinal data** on overall trends 📈. It's like navigating a learning constellation, illuminating both the immediate stars and the broader galactic landscape of student achievement.
+
+        **7. Transparency and Public Reporting: ☀️**
+
+        PISA's results aren't shrouded in secrecy. They're **openly shared and analyzed**, promoting **transparency and accountability** in education systems ☀️. This sunlight fuels informed policy decisions, resource allocation, and educational reforms 📚, ultimately illuminating the path to brighter student outcomes for all.
+        
+        
         ''')
+        st.warning("Overall, PISA's unique features offer a valuable tool for understanding student skills, comparing educational systems, and driving improvements in education worldwide.", icon="🎯")
     st.info('''
     The results of **PISA** assessments are widely used by **policymakers**, **educators**, and **researchers** to:
 
@@ -445,7 +654,7 @@ def about():
     **PISA** has become an **important** tool for **understanding** and **improving** the **quality** of education on a global scale.
 
     ''', icon="🧐")
-    st.link_button("Go to pisa 2022 results volume I", "https://www.oecd-ilibrary.org/education/pisa-2022-results-volume-i_53f23881-en", type='primary')        
+    st.link_button("Go to pisa 2022 results volume I", "https://www.oecd-ilibrary.org/education/pisa-2022-results-volume-i_53f23881-en", type='primary')       
 menu = {
     'title': 'Main menu',
     'items': { 
@@ -511,12 +720,30 @@ def show_menu(menu):
     if 'action' in menu['items'][menu_selection] and menu['items'][menu_selection]['action']:
         menu['items'][menu_selection]['action']()
 show_menu(menu)
+html("""<script>
+    // Locate elements
+    var decoration = window.parent.document.querySelectorAll('[data-testid="stDecoration"]')[0];
+    var sidebar = window.parent.document.querySelectorAll('[data-testid="stSidebar"]')[0];
+    // Observe sidebar size
+    function outputsize() {
+        decoration.style.left = `${sidebar.offsetWidth}px`;
+    }
+    new ResizeObserver(outputsize).observe(sidebar);
+    // Adjust sizes
+    outputsize();
+    decoration.style.height = "6.0rem";
+    decoration.style.right = "45px";
+    // Adjust image decorations
+    decoration.style.backgroundImage = "url(https://raw.githubusercontent.com/summermp/pisa22/main/static/img/banner/merry_christmas.gif)";
+    decoration.style.backgroundSize = "contain";
+    </script>""", width=0, height=0)
 st.sidebar.markdown('''
 <div style='padding:5px 5px 1px 5px; border-radius:8px; background-color: orange; color:white;'>
-<h4 style='color: white; padding:3px; font-weight:bold;'><i class="fa-solid fa-circle-chevron-right"></i> PISA 2025</h4>
+<h4 style='color: white; padding:3px; font-weight:bold;'><i class="fa-solid fa-circle-chevron-right fa-fade"></i> PISA 2025</h4>
 <hr style='margin:0px 0px 5px 0px; padding:0; border: 2px solid white;'>
 Focus on science and include:
 
 <i class="fa-solid fa-language"></i> Foreign languages <br/>
 <i class="fa-solid fa-globe"></i> Learning in the Digital World
 </div>''', unsafe_allow_html=True)
+st.balloons()
