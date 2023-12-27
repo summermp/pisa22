@@ -746,4 +746,10 @@ Focus on science and include:
 <i class="fa-solid fa-language"></i> Foreign languages <br/>
 <i class="fa-solid fa-globe"></i> Learning in the Digital World
 </div>''', unsafe_allow_html=True)
-st.balloons()
+
+if 'balloon' not in st.session_state:
+    st.session_state.balloon = True  # Set to True to load the balloons animation
+
+if st.session_state.balloon:
+    st.balloons()
+    st.session_state.balloon = False  # Set to False to ensure the animation is not loaded again
